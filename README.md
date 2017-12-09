@@ -7,6 +7,7 @@ You may know that MSI has released a [C++ SDK](https://msi.com/Landing/mystic-li
 UPDATE (16/11): I've actually tested the library. It needs Mystic Light to be installed, as such, it only supports a few MSI products, and my gear is not in the list. I'll just post some stubs on how to use it I think, as I'll never be able to test it.
 For reference, here's a link to [Mystic Light 1 installer](http://download.msi.com/uti_exe/Mystic_Light.zip), and another one to [Mystic light 2](http://download.msi.com/uti_exe/Mystic_Light_2.zip). 
 I got the library working in Visual Studio 2017, I suggest using that.
+**If you manage to get it working, please let me know either here or by dropping a mail**
 
 ## Intuition on how it works
 
