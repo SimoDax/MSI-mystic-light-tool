@@ -24,20 +24,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include "MysticLight_SDK.h"
 
 HINSTANCE MLinstance;
-LPMLAPI_Initialize ml_init;
-LPMLAPI_GetErrorMessage ml_errorMsg;
-LPMLAPI_GetDeviceInfo ml_getDevInfo;
-LPMLAPI_GetLedInfo ml_getLedInfo;
-LPMLAPI_GetLedColor ml_getColor;		//coloUr is better tbh..
-LPMLAPI_GetLedStyle	ml_getStyle;
-LPMLAPI_GetLedMaxBright ml_getMaxBright;
-LPMLAPI_GetLedBright ml_getBright;
-LPMLAPI_GetLedMaxSpeed ml_getMaxSpeed;
-LPMLAPI_GetLedSpeed ml_getSpeed;
-LPMLAPI_SetLedColor ml_setColor;
-LPMLAPI_SetLedStyle ml_setStyle;
-LPMLAPI_SetLedBright ml_setBright;
-LPMLAPI_SetLedSpeed ml_setSpeed;
+
+struct MysticLight {		//struct grouping all the function pointers under one pseudo-object, ml, for better clarity
+	LPMLAPI_Initialize init;
+	LPMLAPI_GetErrorMessage errorMsg;
+	LPMLAPI_GetDeviceInfo getDevInfo;
+	LPMLAPI_GetLedInfo getLedInfo;
+	LPMLAPI_GetLedColor getColor;		//coloUr is better tbh..
+	LPMLAPI_GetLedStyle	getStyle;
+	LPMLAPI_GetLedMaxBright getMaxBright;
+	LPMLAPI_GetLedBright getBright;
+	LPMLAPI_GetLedMaxSpeed getMaxSpeed;
+	LPMLAPI_GetLedSpeed getSpeed;
+	LPMLAPI_SetLedColor setColor;
+	LPMLAPI_SetLedStyle setStyle;
+	LPMLAPI_SetLedBright setBright;
+	LPMLAPI_SetLedSpeed setSpeed;
+} ml;
 
 int loadLib() {
 
@@ -45,9 +48,10 @@ int loadLib() {
 	if (!MLinstance)
 		return 0;
 
-	ml_init = (LPMLAPI_Initialize)GetProcAddress(MLinstance, "MLAPI_Initialize");
-	ml_errorMsg = (LPMLAPI_GetErrorMessage)GetProcAddress(MLinstance, "MLAPI_GetErrorMessage");
-	ml_getDevInfo = (LPMLAPI_GetDeviceInfo)GetProcAddress(MLinstance, "MLAPI_GetDeviceInfo");  
+	//initialise the struct fields
+	ml.init = (LPMLAPI_Initialize)GetProcAddress(MLinstance, "MLAPI_Initialize");
+	ml.errorMsg = (LPMLAPI_GetErrorMessage)GetProcAddress(MLinstance, "MLAPI_GetErrorMessage");
+	ml.getDevInfo = (LPMLAPI_GetDeviceInfo)GetProcAddress(MLinstance, "MLAPI_GetDeviceInfo");  
 
 	//add all the other ML functions you need to use here..
 	return 1;
@@ -56,10 +60,9 @@ int loadLib() {
 void printStatus(int status) {
 	BSTR errStr;
 
-	ml_errorMsg(status, &errStr);
+	ml.errorMsg(status, &errStr);
 	printf("Function returned status code: %S\n", errStr);
 }
-
 
 
 int main(){
@@ -74,18 +77,21 @@ int main(){
 
 	if (loadLib()) {
 
-		status = ml_init();		//initialise the sdk
+		status = ml.init();		//initialise the sdk
 		printStatus(status);	//helper function to print a verbose description of the status code
 
-		status = ml_getDevInfo(&devArrayDescriptor, &ledCountArrayDescriptor); //I have yet to understand why it wants a double pointer as parameter..
-		printStatus(status);
+		if (status == 0) {		//initialisation successful
 
-		//sample loop to iterate elements in a safearray
-		for (LONG i = devices.GetLowerBound(); i <= devices.GetUpperBound(); i++){
-			printf("Device #%d: %S, Led count: %d\n", i, devices.GetAt(i), ledCount.GetAt(i));		//item count of both safearrays is the same, safe to access ledCount too
+			status = ml.getDevInfo(&devArrayDescriptor, &ledCountArrayDescriptor); //I have yet to understand why it wants a double pointer as parameter..
+			printStatus(status);
+
+			//sample loop to iterate through elements in a safearray
+			for (LONG i = devices.GetLowerBound(); i <= devices.GetUpperBound(); i++) {
+				printf("Device #%d: %S, Led count: %d\n", i, devices.GetAt(i), ledCount.GetAt(i));		//item count of both safearrays is the same, safe to access ledCount too
+			}
+
+			// ... put your code to control leds here
 		}
-
-		// ... put your code to control leds here
 	}
 	else
 		printf("MysticLight_SDK.dll not found.\n");
