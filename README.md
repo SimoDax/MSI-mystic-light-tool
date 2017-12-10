@@ -20,7 +20,7 @@ The second paramater, `index`, should let the functions know which led (or led a
 
 If you're not familiar with Safearrays, here's a MSDN article about them: https://msdn.microsoft.com/en-us/magazine/mt795188.aspx
 
-This should be the supported hardware list:
+This should be the supported hardware list for Mystic Light v1:
 
 MB:
 	MS-7991|1.x
