@@ -72,9 +72,6 @@ int main(){
 									//according to MSI docs GetDeviceInfo should return a safearray of BSTR for the devices..
 	CComSafeArray<DWORD> ledCount;	//.. and a safearray of DWORD for the led count in each device
 
-	SAFEARRAY* devArrayDescriptor = devices.m_psa;			//the actual pointer to the safearray descriptor is .m_psa
-	SAFEARRAY* ledCountArrayDescriptor = ledCount.m_psa;
-
 	if (loadLib()) {
 
 		status = ml.init();		//initialise the sdk
@@ -82,7 +79,7 @@ int main(){
 
 		if (status == 0) {		//initialisation successful
 
-			status = ml.getDevInfo(&devArrayDescriptor, &ledCountArrayDescriptor); //I have yet to understand why it wants a double pointer as parameter..
+			status = ml.getDevInfo(&(devices.m_psa), &(ledCount.m_psa)); //the function will modify the pointer to the descriptor .m_psa, which is itself a pointer to the actual safearray
 			printStatus(status);
 
 			//sample loop to iterate through elements in a safearray
