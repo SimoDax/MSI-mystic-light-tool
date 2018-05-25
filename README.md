@@ -4,7 +4,7 @@ Open project to implement our own led effects for Mystic Light-enabled MSI produ
 
 You may know that MSI has released a [C++ SDK](https://msi.com/Landing/mystic-light-motherboard#extension) to embed led control in third-parties applications. As the official Gaming App doesn't support many effects (and in my case, I'm limited to 7 colors), I'm planning to code a customizable led tool to get the most out of our leds :)
 
-UPDATE (16/11): I've actually tested the library. It needs Mystic Light to be installed, as such, it only supports a few MSI products, and my gear is not in the list. I've posted a stub program on how to use it as I'll never be able to test it.
+UPDATE: I've actually tested the library. I've posted a stub program on how to use it, but on my pc it always ends up with a Timeout error when I call MLAPI_Initialize(). Maybe you'll have better luck.
 For reference, here's a link to [Mystic Light 1 installer](http://download.msi.com/uti_exe/Mystic_Light.zip), and another one to [Mystic light 2](http://download.msi.com/uti_exe/Mystic_Light_2.zip). 
 I got the library working in Visual Studio 2017, I suggest using that.
 **If you manage to get it working, please let me know either here, by dropping a mail or make a pull request**
