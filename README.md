@@ -7,7 +7,7 @@ You may know that MSI has released a [C++ SDK](https://msi.com/Landing/mystic-li
 UPDATE: For now there's just a stub on how to use it. You need to run the program as administrator to make it work (thanks jugglincode, see issue #1). It works with Mystic Light 2 compatible systems, I tested with ML1 and I got errors after initializing the sdk, feel free to try tho.
 I'm going to build a user friendly program with [Qt](http://qt.io) soon (I think it's the best library to interface C code with an UI), so even people not comfortable with programming can use this.
 For reference, here's a link to [Mystic Light 1 installer](http://download.msi.com/uti_exe/Mystic_Light.zip), and another one to [Mystic light 2](http://download.msi.com/uti_exe/Mystic_Light_2.zip). 
-I got the library working in Visual Studio 2017, I suggest using that.
+I got the library working in Visual Studio 2017, I suggest using that. Remember to compile for x86, the dll won't load in 64 bit applications.
 **If you manage to get it working, please let us know, feedback is much appreciated!**
 
 ## How it works
