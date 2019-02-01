@@ -4,7 +4,7 @@ Open project to implement our own led effects for Mystic Light-enabled MSI produ
 
 You may know that MSI has released a [C++ SDK](https://msi.com/Landing/mystic-light-motherboard#extension) (update: I uploaded  [here](https://github.com/SimoDax/MSI-mystic-light-tool/blob/master/Mystic_Light_Software_Development_Kit.pdf) the sdk reference since the link on MSI's own website is broken) to embed led control in third-parties applications. As the official Gaming App doesn't support many effects (and in my case, I'm limited to 7 colors), I'm planning to code a customizable led tool to get the most out of our leds :)
 
-If your system is not compatible with Mystic Light 2, there's a nice alternative which interfaces directly to the hardware and doesn't rely on MSI's stuff: [MSIRGB](https://github.com/ixjf/MSIRGB). Unlike Mystic Light, there is no colour limitation (which is a software limitation, not a hardware one)
+If your system is not compatible with Mystic Light 2, there's a nice alternative which interfaces directly to the hardware and doesn't rely on MSI's stuff: [MSIRGB](https://github.com/ixjf/MSIRGB). Unlike Mystic Light, there is no colour limitation (**which is a software limitation, not a hardware one**)
 
 UPDATE: For now there's just a stub on how to use it. You need to run the program as administrator to make it work (thanks jugglincode, see issue #1). It works with Mystic Light 2 compatible systems, I tested with ML1 and I got errors after initializing the sdk, feel free to try tho.
 I'm going to build a user friendly program with [Qt](http://qt.io) soon (I think it's the best library to interface C code with an UI), so even people not comfortable with programming can use this.
